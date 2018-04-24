@@ -1,5 +1,12 @@
 #!/bin/bash
 
+# Global vars
+NET_ADDR=""
+NET_MASK=""
+BCAST_ADDR=""
+IP_COUNT=""
+EMPTY_SPACES='    '
+
 ip_calc (){
     echo "|=====================================================|";
     echo "|                 IP CALCULATOR                       |";
@@ -26,16 +33,19 @@ ip_calc (){
 ip_calc_exit (){
     set -e
 }
-
+#
+# Calc IP network and broadcast address
+# 
+# $1 : IP Address
+# $2 : Broadcast address
+#
 ip_calc_network_calc (){
-
     if [ -z $1 ] || [ -z $2 ]; then
         ip_calc_show_help;
     fi;
     first_ip="";
     last_ip="";
-    for index in 1 2 3 4;
-    do
+    for index in 1 2 3 4 ; do
         ip_o=$(echo $1 | cut -d'.' -f$index);
         mask_o=$(echo $2 | cut -d'.' -f$index);
         has_dot=".";
